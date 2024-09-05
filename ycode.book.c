@@ -32,21 +32,6 @@ void add_book()
         if (strcmp(titles[i], title) == 0) 
         {
             printf("The book '%s' already exists in the library.\n", title);
-            printf("Do you want to update the existing book? (y/n): ");
-            char choice;
-            scanf(" %c", &choice);
-            if (choice == 'y' || choice == 'Y') 
-            {
-                printf("Enter new author name: ");
-                scanf(" %[^\n]", authors[i]);
-                printf("Enter new book price: ");
-                scanf("%f", &prices[i]);
-                printf("Enter new quantity in stock: ");
-                scanf("%d", &quantities[i]);
-                printf("Book updated successfully.\n");
-            } else {
-                printf("Book not added.\n");
-            }
             return;
         }
         i++;
