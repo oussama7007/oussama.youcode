@@ -7,7 +7,6 @@
 #define MAX_TITLE_LENGTH 100
 #define MAX_AUTHOR_LENGTH 100
 
-// Arrays to store book information
 char titles[MAX_BOOKS][MAX_TITLE_LENGTH];
 char authors[MAX_BOOKS][MAX_AUTHOR_LENGTH];
 float prices[MAX_BOOKS];
@@ -15,27 +14,56 @@ int quantities[MAX_BOOKS];
 
 int book_count = 0;
 
-// Function to add a book to the stock
-void add_book() {
-    if (book_count >= MAX_BOOKS) {
+void add_book() 
+{
+    if (book_count >= MAX_BOOKS) 
+    {
         printf("Stock is full. Can't add more books.\n");
         return;
     }
 
-    printf("Enter book title:")
-    scanf(" %[^\n]", titles[book_count]);
+    char title[MAX_TITLE_LENGTH];
+    printf("Enter book title: ");
+    scanf(" %[^\n]", title);
+
+    int i = 0;
+    while (i < book_count) 
+    {
+        if (strcmp(titles[i], title) == 0) 
+        {
+            printf("The book '%s' already exists in the library.\n", title);
+            printf("Do you want to update the existing book? (y/n): ");
+            char choice;
+            scanf(" %c", &choice);
+            if (choice == 'y' || choice == 'Y') 
+            {
+                printf("Enter new author name: ");
+                scanf(" %[^\n]", authors[i]);
+                printf("Enter new book price: ");
+                scanf("%f", &prices[i]);
+                printf("Enter new quantity in stock: ");
+                scanf("%d", &quantities[i]);
+                printf("Book updated successfully.\n");
+            } else {
+                printf("Book not added.\n");
+            }
+            return;
+        }
+        i++;
+    }
+
+    strcpy(titles[book_count], title);
     printf("Enter author name: ");
     scanf(" %[^\n]", authors[book_count]);
     printf("Enter book price: ");
     scanf("%f", &prices[book_count]);
     printf("Enter quantity in stock: ");
     scanf("%d", &quantities[book_count]);
-
+    
     book_count++;
     printf("Book added successfully.\n");
 }
 
-// Function to show all available books
 void show_books() {
     if (book_count == 0) {
         printf("No books in stock.\n");
@@ -50,7 +78,6 @@ void show_books() {
     }
 }
 
-// Function to update the quantity of a book
 void update_quantity() {
     char title[MAX_TITLE_LENGTH];
     int new_quantity;
@@ -73,7 +100,6 @@ void update_quantity() {
     printf("Book not found.\n");
 }
 
-// Function to remove a book from stock
 void remove_book() {
     char title[MAX_TITLE_LENGTH];
 
@@ -95,14 +121,13 @@ void remove_book() {
             book_count--;
             printf("Book removed successfully.\n");
             return;
-        }\
+        }
         i++;
     }
 
     printf("Book not found.\n");
 }
 
-// Function to show the total number of books in stock
 void total_books() {
     int total = 0;
     int i = 0;
@@ -115,12 +140,11 @@ void total_books() {
     printf("Total number of books in stock: %d\n", total);
 }
 
-// Main function with menu
 int main() {
     int choice;
 
-    while (true)
-     {
+    while (true) 
+    {
         printf("\nBookstore Management System\n");
         printf("1. Add a book to stock\n");
         printf("2. Show all available books\n");
